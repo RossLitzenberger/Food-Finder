@@ -1,1 +1,2 @@
-Baney	Hotdogs	120Cafe Masala	Indina	30
+Todd	fastfood	500
+Mcd's	bigmac	12
