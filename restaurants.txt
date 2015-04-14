@@ -1,2 +1,6 @@
-md	hotdog	20
-pita pocket	fast food	10
+Quick Cup	Coffee	5
+Pita Pocket	Fast Food	10
+Cafe Masala	Indian	30
+Hot Tamale	Mexican	25
+Mallard House	New American	35
+Taste Of Little Italy	Pizza	10
