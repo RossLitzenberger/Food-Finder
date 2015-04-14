@@ -24,13 +24,33 @@ class Restaurant
 		return false unless File.writable?(@@filepath)	
 		return true
 	end
-		
+	
 	def self.create_file
 		# create the restaurant file
 		File.open(@@filepath, 'w') unless file_exists?
 		return file_usable?
 	end
 
+	def self.build_using_questions
+		args = {}
+		
+		print "Restaurant name: "
+		args[:name] = gets.chomp.strip
+		
+		print "Restaurant cuisine: "
+		 args[:cuisine]= gets.chomp.strip 
+		
+		print "Avergae price: "
+		args[:price] = gets.chomp.strip
+
+		return self.new(args)
+	end
+
+	def initialize(args={})
+		@name    = args[:name]    || ""
+		@cuisine = args[:cuisine] || ""
+		@price   = args[:price]   || ""
+	end
 	def self.saved_restaurants
 		# read the restaurant file
 		# return instances of restaurant		
