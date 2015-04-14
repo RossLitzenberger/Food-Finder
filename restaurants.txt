@@ -1,2 +1,2 @@
-Todd	fastfood	500
-Mcd's	bigmac	12
+md	hotdog	20
+pita pocket	fast food	10

@@ -1,5 +1,6 @@
+require 'support/number_helper'
 class Restaurant
-
+	include NumberHelper
 		@@filepath = nil
 
 	def self.filepath=(path=nil)
@@ -31,21 +32,6 @@ class Restaurant
 		return file_usable?
 	end
 
-	def self.build_using_questions
-		args = {}
-		
-		print "Restaurant name: "
-		args[:name] = gets.chomp.strip
-		
-		print "Cuisine type: "
-		 args[:cuisine]= gets.chomp.strip 
-		
-		print "Average price: "
-		args[:price] = gets.chomp.strip
-
-		return self.new(args)
-	end
-
 	def self.saved_restaurants
 		# We have to ask ourselves, do we want a frash copy each 
 		# time or do we want to store the results in a varibale?
@@ -61,6 +47,22 @@ class Restaurant
 		return restaurants
 	end
 
+	def self.build_using_questions
+		args = {}
+		
+		print "Restaurant name: "
+		args[:name] = gets.chomp.strip
+		
+		print "Cuisine type: "
+		 args[:cuisine]= gets.chomp.strip 
+		
+		print "Average price: "
+		args[:price] = gets.chomp.strip
+
+		return self.new(args)
+	end
+
+
 	def initialize(args={})
 		@name    = args[:name]    || ""
 		@cuisine = args[:cuisine] || ""
@@ -72,11 +74,15 @@ class Restaurant
 		@name, @cuisine, @price = line_array
 		return self
 	end
+	
 	def save
 		return false unless Restaurant.file_usable?
 		File.open(@@filepath, 'a') do |file|
 			file.puts "#{[@name, @cuisine, @price].join("\t")}\n"
 		end
 		return true
+	end
+	def formatted_price
+		number_to_currency(@price)
 	end
 end

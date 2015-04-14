@@ -1,4 +1,4 @@
-##### Food Finder #####
+
 #
 # Launch this Ruby file from the commend line
 # to get started.
