@@ -27,8 +27,8 @@ class Guide
 		 result = nil
 
 		 until result == :quit
-			 action = get_action
-			 result = do_action(action)		
+			 action, args = get_action
+			 result = do_action(action, args)		
 			 # repeat until user quits
 	 	end
 		 conclusion
@@ -41,17 +41,19 @@ class Guide
 			puts "Actions: " + Guide::Config.actions.join(", ") if action
 			print "> "
 			user_response = gets.chomp
-			action = user_response.downcase.strip
+			args = user_response.downcase.strip.split(' ')
+			action = args.shift
 		end
-		return action
+		return action, args
 	end
 
-	def do_action(action)
+	def do_action(action, args=[])
 		case action
 		when 'list'
 			list
 		when 'find'
-			puts 'Finding....'
+			keyword = args.shift
+			find(keyword)
 		when 'add'
 			add
 		when 'quit'
@@ -66,7 +68,22 @@ class Guide
 		restaurants = Restaurant.saved_restaurants
 		output_restaurant_table(restaurants)
 	end
-
+	def find(keyword="")
+		out_action_header("Find a restaurant")
+		if keyword
+			restaurant = Restaurant.saved_restaurants
+			found = restaurant.select do |rest|
+				rest.name.downcase.include?(keyword.downcase) ||
+				rest.cuisine.downcase.include?(keyword.downcase) ||
+				rest.price.to_i <= keyword.to_i
+			end
+			output_restaurant_table(found)
+			# search
+		else
+			puts "Find using a key phrase to search the restaurant list."
+			puts "Examples: 'find tamale', 'find Mexican', 'find mex'\n\n"
+		end
+	end
 	def add
 		out_action_header("Add a restaurant")
 		restaurant = Restaurant.build_using_questions
